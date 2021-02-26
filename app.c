@@ -39,6 +39,11 @@ static uint8_t advertising_set_handle = 0xff;
 
 //IADC Required Includes and definitions
 
+#include "em_iadc.h"
+#include "em_cmu.h"
+volatile IADC_Result_t sample;
+volatile uint32_t millivolts;
+
 // Set HFRCODLL clock to 80MHz
 #define HFRCODPLL_FREQ            cmuHFRCODPLLFreq_80M0Hz
 
@@ -83,13 +88,93 @@ void led_task(void *p_arg)
   while (1)
     {
         // Put your application code here!
-        vTaskDelay(1000);
+        vTaskDelay(5000);
         sl_led_toggle(&sl_led_led0);
 
     }
 
 }
 
+
+
+/**************************************************************************//**
+ * @brief  Initialize ADC function
+ *****************************************************************************/
+
+void my_adc_init (void)
+{
+  IADC_Init_t init = IADC_INIT_DEFAULT;
+  IADC_AllConfigs_t initAllConfigs = IADC_ALLCONFIGS_DEFAULT;
+  IADC_InitSingle_t initSingle = IADC_INITSINGLE_DEFAULT;
+  IADC_SingleInput_t initSingleInput = IADC_SINGLEINPUT_DEFAULT;
+
+  // Enable IADC clock
+  CMU_ClockEnable(cmuClock_IADC0, true);
+
+  // Reset IADC to reset configuration in case it has been modified
+  IADC_reset(IADC0);
+
+  // Configure IADC clock source for use while in EM2
+  CMU_ClockSelectSet(cmuClock_IADCCLK, cmuSelect_FSRCO);
+
+  // Modify init structs and initialize
+  init.warmup = iadcWarmupKeepWarm;
+
+  // Set the HFSCLK prescale value here
+  init.srcClkPrescale = IADC_calcSrcClkPrescale(IADC0, CLK_SRC_ADC_FREQ, 0);
+
+  // Configuration 0 is used by both scan and single conversions by default
+  // Use unbuffered AVDD as reference
+  initAllConfigs.configs[0].reference = iadcCfgReferenceVddx;
+
+  // Divides CLK_SRC_ADC to set the CLK_ADC frequency for desired sample rate
+  initAllConfigs.configs[0].adcClkPrescale = IADC_calcAdcClkPrescale(IADC0,
+                                                                    CLK_ADC_FREQ,
+                                                                    0,
+                                                                    iadcCfgModeNormal,
+                                                                    init.srcClkPrescale);
+
+  // Single initialization
+  initSingle.dataValidLevel = _IADC_SINGLEFIFOCFG_DVL_VALID1;
+
+  // Set conversions to run once
+  initSingle.triggerAction = iadcTriggerActionOnce;
+
+  // Configure Input sources for single ended conversion GPIO port C pin 2
+
+  initSingleInput.posInput = iadcPosInputPortCPin2;
+  initSingleInput.negInput = iadcNegInputGnd;
+
+  // Initialize IADC
+  IADC_init(IADC0, &init, &initAllConfigs);
+
+  // Initialize Scan
+  IADC_initSingle(IADC0, &initSingle, &initSingleInput);
+
+  // Allocate the analog bus for ADC0 inputs
+  GPIO->IADC_INPUT_BUS |= IADC_INPUT_BUSALLOC;
+
+}
+
+void my_adc_start_measurement(void)
+{
+
+  IADC_command(IADC0, iadcCmdStartSingle);
+
+}
+
+void my_adc_measurement_get(void)
+{
+
+
+  // Wait for conversion to be complete
+       while((IADC0->STATUS & (_IADC_STATUS_CONVERTING_MASK
+                   | _IADC_STATUS_SINGLEFIFODV_MASK)) != IADC_STATUS_SINGLEFIFODV); //while combined status bits 8 & 6 don't equal 1 and 0 respectively
+       sample = IADC_pullSingleFifoResult(IADC0);
+
+  // Calculate input voltage in mV
+  millivolts = (sample.data * 2500) / 4096;
+}
 
 //IADC Task
 
@@ -99,13 +184,13 @@ void iadc_task(void *p_arg)
 {
 
   (void)p_arg;
-  while (1)
-    {
-        // Put your application code here!
-        vTaskDelay(1000);
-        sl_led_toggle(&sl_led_led0);
-
-    }
+  while (1) {
+     // Put your application code here!
+     vTaskDelay(100);
+     my_adc_start_measurement();
+     my_adc_measurement_get();
+     sl_led_toggle(&sl_led_led0);
+   }
 
 }
 
@@ -120,6 +205,7 @@ SL_WEAK void app_init(void)
   // This is called once during start-up.                                    //
   /////////////////////////////////////////////////////////////////////////////
   ///
+  my_adc_init();
 
 
   xTaskCreateStatic(led_task,

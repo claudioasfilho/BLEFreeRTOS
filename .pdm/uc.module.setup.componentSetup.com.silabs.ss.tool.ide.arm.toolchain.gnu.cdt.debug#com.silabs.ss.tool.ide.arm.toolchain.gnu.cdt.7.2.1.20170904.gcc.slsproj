@@ -163,6 +163,7 @@
           <file name="em_se.h" uri="file:///Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1/platform/emlib/inc/em_se.h"/>
           <file name="em_cmu.h" uri="file:///Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1/platform/emlib/inc/em_cmu.h"/>
           <file name="em_cmu_compat.h" uri="file:///Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1/platform/emlib/inc/em_cmu_compat.h"/>
+          <file name="em_iadc.h" uri="file:///Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1/platform/emlib/inc/em_iadc.h"/>
           <file name="em_system.h" uri="file:///Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1/platform/emlib/inc/em_system.h"/>
           <file name="em_usart.h" uri="file:///Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1/platform/emlib/inc/em_usart.h"/>
           <file name="em_gpio.h" uri="file:///Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1/platform/emlib/inc/em_gpio.h"/>
@@ -180,6 +181,7 @@
           <file name="em_burtc.c" uri="file:///Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1/platform/emlib/src/em_burtc.c"/>
           <file name="em_se.c" uri="file:///Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1/platform/emlib/src/em_se.c"/>
           <file name="em_cmu.c" uri="file:///Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1/platform/emlib/src/em_cmu.c"/>
+          <file name="em_iadc.c" uri="file:///Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1/platform/emlib/src/em_iadc.c"/>
           <file name="em_system.c" uri="file:///Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1/platform/emlib/src/em_system.c"/>
           <file name="em_usart.c" uri="file:///Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1/platform/emlib/src/em_usart.c"/>
           <file name="em_gpio.c" uri="file:///Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1/platform/emlib/src/em_gpio.c"/>

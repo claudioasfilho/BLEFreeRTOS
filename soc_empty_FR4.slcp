@@ -19,6 +19,7 @@ source:
 project_name: soc_empty_FR4
 quality: production
 component:
+- {id: emlib_iadc}
 - {id: mpu}
 - instance: [led0]
   id: simple_led
