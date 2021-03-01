@@ -20,6 +20,8 @@
 #include "gatt_db.h"
 #include "app.h"
 
+#include "sl_app_log.h"
+
 
 // The advertising set handle allocated from Bluetooth stack.
 static uint8_t advertising_set_handle = 0xff;
@@ -88,6 +90,7 @@ void led_task(void *p_arg)
   while (1)
     {
         // Put your application code here!
+      sl_app_log("LED Task\r\n");
         vTaskDelay(5000);
         sl_led_toggle(&sl_led_led0);
 
@@ -186,6 +189,8 @@ void iadc_task(void *p_arg)
   (void)p_arg;
   while (1) {
      // Put your application code here!
+
+     sl_app_log("ADC Task\r\n");
      vTaskDelay(100);
      my_adc_start_measurement();
      my_adc_measurement_get();
@@ -259,6 +264,8 @@ void sl_bt_on_event(sl_bt_msg_t *evt)
     // This event indicates the device has started and the radio is ready.
     // Do not call any stack command before receiving this boot event!
     case sl_bt_evt_system_boot_id:
+
+      printf("Hello world\r\n");
 
       // Extract unique ID from BT Address.
       sc = sl_bt_system_get_identity_address(&address, &address_type);

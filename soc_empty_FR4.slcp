@@ -19,16 +19,19 @@ source:
 project_name: soc_empty_FR4
 quality: production
 component:
-- {id: emlib_iadc}
 - {id: mpu}
 - instance: [led0]
   id: simple_led
+- {id: rail_util_pti}
+- {id: emlib_iadc}
+- {id: app_log}
+- instance: [vcom]
+  id: iostream_usart
 - {id: component_catalog}
 - {id: ota_dfu}
 - {id: freertos_heap_3}
 - {id: brd4184a}
 - {id: bootloader_interface}
-- {id: rail_util_pti}
 - {id: app_assert}
 - {id: EFR32BG22C224F512IM40}
 - {id: bt_fp_soc_default}

@@ -101,6 +101,23 @@ autogen/sl_event_handler.o: ../autogen/sl_event_handler.c \
  /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//protocol/bluetooth/inc/sl_bt_stack_config.h \
  /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//protocol/bluetooth/inc/sl_bt_ll_config.h \
  /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//protocol/bluetooth/inc/sl_bt_api.h \
+ ../autogen/sl_iostream_init_instances.h \
+ /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//platform/service/iostream/inc/sl_iostream.h \
+ ../autogen/sl_iostream_init_usart_instances.h \
+ ../autogen/sl_component_catalog.h \
+ /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//platform/service/iostream/inc/sl_iostream_uart.h \
+ /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//platform/service/iostream/inc/sl_iostream.h \
+ /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//platform/CMSIS/RTOS2/Include/cmsis_os2.h \
+ /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//platform/common/inc/sl_cmsis_os2_common.h \
+ /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//util/third_party/freertos/Source/include/FreeRTOS.h \
+ /Users/clfilho/SimplicityStudio/v5_workspace/soc_empty_FR4/config/FreeRTOSConfig.h \
+ /Users/clfilho/SimplicityStudio/v5_workspace/soc_empty_FR4/autogen/RTE_Components.h \
+ /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//util/third_party/freertos/CMSIS/RTOS2/FreeRTOS/Include/freertos_evr.h \
+ /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//util/third_party/freertos/Source/include/projdefs.h \
+ /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//util/third_party/freertos/Source/include/portable.h \
+ /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//util/third_party/freertos/Source/include/deprecated_definitions.h \
+ /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//util/third_party/freertos/Source/portable/GCC/ARM_CM33_NTZ/non_secure/portmacro.h \
+ /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//util/third_party/freertos/Source/include/mpu_wrappers.h \
  /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//util/third_party/crypto/sl_component/sl_alt/include/sl_mbedtls.h \
  /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//platform/service/mpu/inc/sl_mpu.h \
  /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//platform/emdrv/nvm3/inc/nvm3_default.h \
@@ -113,8 +130,7 @@ autogen/sl_event_handler.o: ../autogen/sl_event_handler.c \
  ../autogen/sl_simple_led_instances.h \
  /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//platform/driver/leddrv/inc/sl_simple_led.h \
  /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//platform/driver/leddrv/inc/sl_led.h \
- /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//platform/emlib/inc/em_gpio.h \
- /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//platform/CMSIS/RTOS2/Include/cmsis_os2.h
+ /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//platform/emlib/inc/em_gpio.h
 
 /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//platform/common/toolchain/inc/sl_gcc_preinclude.h:
 
@@ -320,6 +336,40 @@ autogen/sl_event_handler.o: ../autogen/sl_event_handler.c \
 
 /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//protocol/bluetooth/inc/sl_bt_api.h:
 
+../autogen/sl_iostream_init_instances.h:
+
+/Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//platform/service/iostream/inc/sl_iostream.h:
+
+../autogen/sl_iostream_init_usart_instances.h:
+
+../autogen/sl_component_catalog.h:
+
+/Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//platform/service/iostream/inc/sl_iostream_uart.h:
+
+/Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//platform/service/iostream/inc/sl_iostream.h:
+
+/Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//platform/CMSIS/RTOS2/Include/cmsis_os2.h:
+
+/Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//platform/common/inc/sl_cmsis_os2_common.h:
+
+/Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//util/third_party/freertos/Source/include/FreeRTOS.h:
+
+/Users/clfilho/SimplicityStudio/v5_workspace/soc_empty_FR4/config/FreeRTOSConfig.h:
+
+/Users/clfilho/SimplicityStudio/v5_workspace/soc_empty_FR4/autogen/RTE_Components.h:
+
+/Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//util/third_party/freertos/CMSIS/RTOS2/FreeRTOS/Include/freertos_evr.h:
+
+/Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//util/third_party/freertos/Source/include/projdefs.h:
+
+/Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//util/third_party/freertos/Source/include/portable.h:
+
+/Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//util/third_party/freertos/Source/include/deprecated_definitions.h:
+
+/Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//util/third_party/freertos/Source/portable/GCC/ARM_CM33_NTZ/non_secure/portmacro.h:
+
+/Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//util/third_party/freertos/Source/include/mpu_wrappers.h:
+
 /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//util/third_party/crypto/sl_component/sl_alt/include/sl_mbedtls.h:
 
 /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//platform/service/mpu/inc/sl_mpu.h:
@@ -345,5 +395,3 @@ autogen/sl_event_handler.o: ../autogen/sl_event_handler.c \
 /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//platform/driver/leddrv/inc/sl_led.h:
 
 /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//platform/emlib/inc/em_gpio.h:
-
-/Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//platform/CMSIS/RTOS2/Include/cmsis_os2.h:

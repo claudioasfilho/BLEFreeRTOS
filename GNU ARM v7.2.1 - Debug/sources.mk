@@ -34,6 +34,7 @@ gecko_sdk_3.1.1/platform/radio/rail_lib/plugin/pa-conversions \
 gecko_sdk_3.1.1/platform/radio/rail_lib/plugin/rail_util_pti \
 gecko_sdk_3.1.1/platform/service/device_init/src \
 gecko_sdk_3.1.1/platform/service/hfxo_manager/src \
+gecko_sdk_3.1.1/platform/service/iostream/src \
 gecko_sdk_3.1.1/platform/service/mpu/src \
 gecko_sdk_3.1.1/platform/service/power_manager/src \
 gecko_sdk_3.1.1/platform/service/ram_interrupt_vector_init/src \
@@ -55,4 +56,6 @@ gecko_sdk_3.1.1/util/third_party/freertos/Source \
 gecko_sdk_3.1.1/util/third_party/freertos/Source/portable/GCC/ARM_CM33_NTZ/non_secure \
 gecko_sdk_3.1.1/util/third_party/freertos/Source/portable/MemMang \
 gecko_sdk_3.1.1/util/third_party/freertos/Source/portable/SiliconLabs \
+gecko_sdk_3.1.1/util/third_party/printf \
+gecko_sdk_3.1.1/util/third_party/printf/src \
 

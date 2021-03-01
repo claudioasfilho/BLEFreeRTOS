@@ -60,6 +60,7 @@ app.o: ../app.c \
  /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//platform/emlib/inc/em_assert.h \
  /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//app/bluetooth/common/app_assert/sl_app_assert.h \
  /Users/clfilho/SimplicityStudio/v5_workspace/soc_empty_FR4/autogen/sl_component_catalog.h \
+ /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//util/third_party/printf/printf.h \
  /Users/clfilho/SimplicityStudio/v5_workspace/soc_empty_FR4/config/sl_app_assert_config.h \
  /Users/clfilho/SimplicityStudio/v5_workspace/soc_empty_FR4/autogen/sl_bluetooth.h \
  /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//platform/service/power_manager/inc/sl_power_manager.h \
@@ -80,6 +81,8 @@ app.o: ../app.c \
  /Users/clfilho/SimplicityStudio/v5_workspace/soc_empty_FR4/autogen/gatt_db.h \
  /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//protocol/bluetooth/inc/bg_gattdb_def.h \
  ../app.h \
+ /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//app/bluetooth/common/app_log/sl_app_log.h \
+ /Users/clfilho/SimplicityStudio/v5_workspace/soc_empty_FR4/config/sl_app_log_config.h \
  /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//util/third_party/freertos/Source/include/FreeRTOS.h \
  /Users/clfilho/SimplicityStudio/v5_workspace/soc_empty_FR4/config/FreeRTOSConfig.h \
  /Users/clfilho/SimplicityStudio/v5_workspace/soc_empty_FR4/autogen/RTE_Components.h \
@@ -225,6 +228,8 @@ app.o: ../app.c \
 
 /Users/clfilho/SimplicityStudio/v5_workspace/soc_empty_FR4/autogen/sl_component_catalog.h:
 
+/Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//util/third_party/printf/printf.h:
+
 /Users/clfilho/SimplicityStudio/v5_workspace/soc_empty_FR4/config/sl_app_assert_config.h:
 
 /Users/clfilho/SimplicityStudio/v5_workspace/soc_empty_FR4/autogen/sl_bluetooth.h:
@@ -264,6 +269,10 @@ app.o: ../app.c \
 /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//protocol/bluetooth/inc/bg_gattdb_def.h:
 
 ../app.h:
+
+/Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//app/bluetooth/common/app_log/sl_app_log.h:
+
+/Users/clfilho/SimplicityStudio/v5_workspace/soc_empty_FR4/config/sl_app_log_config.h:
 
 /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//util/third_party/freertos/Source/include/FreeRTOS.h:
 

@@ -144,9 +144,19 @@
 			<locationURI>STUDIO_SDK_LOC/platform/common/inc/sl_status.h</locationURI>
 		</link>
 		<link>
+			<name>gecko_sdk_3.1.1/platform/common/inc/sli_cmsis_os2_ext_task_register.h</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/common/inc/sli_cmsis_os2_ext_task_register.h</locationURI>
+		</link>
+		<link>
 			<name>gecko_sdk_3.1.1/platform/common/src/sl_slist.c</name>
 			<type>1</type>
 			<locationURI>STUDIO_SDK_LOC/platform/common/src/sl_slist.c</locationURI>
+		</link>
+		<link>
+			<name>gecko_sdk_3.1.1/platform/common/src/sli_cmsis_os2_ext_task_register.c</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/common/src/sli_cmsis_os2_ext_task_register.c</locationURI>
 		</link>
 		<link>
 			<name>gecko_sdk_3.1.1/platform/emlib/inc/em_assert.h</name>
@@ -369,9 +379,24 @@
 			<locationURI>STUDIO_SDK_LOC/protocol/bluetooth/src/sl_bt_rtos_adaptation.c</locationURI>
 		</link>
 		<link>
+			<name>gecko_sdk_3.1.1/util/third_party/printf/printf.c</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/util/third_party/printf/printf.c</locationURI>
+		</link>
+		<link>
+			<name>gecko_sdk_3.1.1/util/third_party/printf/printf.h</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/util/third_party/printf/printf.h</locationURI>
+		</link>
+		<link>
 			<name>gecko_sdk_3.1.1/app/bluetooth/common/app_assert/sl_app_assert.h</name>
 			<type>1</type>
 			<locationURI>STUDIO_SDK_LOC/app/bluetooth/common/app_assert/sl_app_assert.h</locationURI>
+		</link>
+		<link>
+			<name>gecko_sdk_3.1.1/app/bluetooth/common/app_log/sl_app_log.h</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/app/bluetooth/common/app_log/sl_app_log.h</locationURI>
 		</link>
 		<link>
 			<name>gecko_sdk_3.1.1/app/bluetooth/common/ota_dfu/sl_ota_dfu.c</name>
@@ -599,6 +624,41 @@
 			<locationURI>STUDIO_SDK_LOC/platform/service/hfxo_manager/src/sli_hfxo_manager_internal.h</locationURI>
 		</link>
 		<link>
+			<name>gecko_sdk_3.1.1/platform/service/iostream/inc/sl_iostream.h</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/service/iostream/inc/sl_iostream.h</locationURI>
+		</link>
+		<link>
+			<name>gecko_sdk_3.1.1/platform/service/iostream/inc/sl_iostream_uart.h</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/service/iostream/inc/sl_iostream_uart.h</locationURI>
+		</link>
+		<link>
+			<name>gecko_sdk_3.1.1/platform/service/iostream/inc/sl_iostream_usart.h</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/service/iostream/inc/sl_iostream_usart.h</locationURI>
+		</link>
+		<link>
+			<name>gecko_sdk_3.1.1/platform/service/iostream/inc/sli_iostream_uart.h</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/service/iostream/inc/sli_iostream_uart.h</locationURI>
+		</link>
+		<link>
+			<name>gecko_sdk_3.1.1/platform/service/iostream/src/sl_iostream.c</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/service/iostream/src/sl_iostream.c</locationURI>
+		</link>
+		<link>
+			<name>gecko_sdk_3.1.1/platform/service/iostream/src/sl_iostream_uart.c</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/service/iostream/src/sl_iostream_uart.c</locationURI>
+		</link>
+		<link>
+			<name>gecko_sdk_3.1.1/platform/service/iostream/src/sl_iostream_usart.c</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/service/iostream/src/sl_iostream_usart.c</locationURI>
+		</link>
+		<link>
 			<name>gecko_sdk_3.1.1/platform/service/mpu/inc/sl_mpu.h</name>
 			<type>1</type>
 			<locationURI>STUDIO_SDK_LOC/platform/service/mpu/inc/sl_mpu.h</locationURI>
@@ -767,6 +827,16 @@
 			<name>gecko_sdk_3.1.1/util/third_party/freertos/Source/timers.c</name>
 			<type>1</type>
 			<locationURI>STUDIO_SDK_LOC/util/third_party/freertos/Source/timers.c</locationURI>
+		</link>
+		<link>
+			<name>gecko_sdk_3.1.1/util/third_party/printf/inc/iostream_printf.h</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/util/third_party/printf/inc/iostream_printf.h</locationURI>
+		</link>
+		<link>
+			<name>gecko_sdk_3.1.1/util/third_party/printf/src/iostream_printf.c</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/util/third_party/printf/src/iostream_printf.c</locationURI>
 		</link>
 		<link>
 			<name>gecko_sdk_3.1.1/hardware/driver/mx25_flash_shutdown/inc/sl_mx25_flash_shutdown_usart/sl_mx25_flash_shutdown.h</name>

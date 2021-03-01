@@ -78,6 +78,7 @@ gecko_sdk_3.1.1/app/bluetooth/common/ota_dfu/sl_ota_dfu.o: \
  /Users/clfilho/SimplicityStudio/v5_workspace/soc_empty_FR4/autogen/gatt_db.h \
  /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//protocol/bluetooth/inc/bg_gattdb_def.h \
  /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//app/bluetooth/common/app_assert/sl_app_assert.h \
+ /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//util/third_party/printf/printf.h \
  /Users/clfilho/SimplicityStudio/v5_workspace/soc_empty_FR4/config/sl_app_assert_config.h \
  /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1/app/bluetooth/common/ota_dfu/sl_ota_dfu.h
 
@@ -236,6 +237,8 @@ gecko_sdk_3.1.1/app/bluetooth/common/ota_dfu/sl_ota_dfu.o: \
 /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//protocol/bluetooth/inc/bg_gattdb_def.h:
 
 /Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//app/bluetooth/common/app_assert/sl_app_assert.h:
+
+/Applications/SimplicityStudio5.app/Contents/Eclipse/developer/sdks/gecko_sdk_suite/v3.1//util/third_party/printf/printf.h:
 
 /Users/clfilho/SimplicityStudio/v5_workspace/soc_empty_FR4/config/sl_app_assert_config.h:
 
