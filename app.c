@@ -27,19 +27,29 @@
 static uint8_t advertising_set_handle = 0xff;
 
 
-//FreeRTOS Required Includes and definitions
+/**************************************************************************//**
+ * @brief  FreeRTOS Required Includes and definitions
+ *****************************************************************************/
+
 
 #include "FreeRTOS.h"
 #include "task.h"
+#include "queue.h"
 
 #define SL_BT_RTOS_APPLICATION_PRIORITY         10u
 
-//Simple LED required includes
+/**************************************************************************//**
+ * @brief  Simple LED required includes
+ *****************************************************************************/
+
 
 #include "sl_led.h"
 #include "sl_simple_led_instances.h"
 
-//IADC Required Includes and definitions
+
+/**************************************************************************//**
+ * @brief  IADC Required Includes and definitions
+ *****************************************************************************/
 
 #include "em_iadc.h"
 #include "em_cmu.h"
@@ -63,14 +73,17 @@ volatile uint32_t millivolts;
 #define IADC_INPUT_POS            iadcPosInputPortCPin6
 #define IADC_INPUT_NEG            iadcNegInputGnd
 
-//Task Definitions
+/**************************************************************************//**
+ * @brief  Task and Queues Definitions
+ *****************************************************************************/
 
 //LED Task
 
 #define LED_TASK_NAME          "led_task"
 #define LED_TASK_STACK_SIZE    200
 StackType_t led_task_stack[LED_TASK_STACK_SIZE];
-StaticTask_t led_task_handle;
+//StaticTask_t led_task_handle;
+TaskHandle_t led_task_handle;
 
 //IADC Task
 
@@ -79,11 +92,15 @@ StaticTask_t led_task_handle;
 StackType_t iadc_task_stack[IADC_TASK_STACK_SIZE];
 StaticTask_t iadc_task_handle;
 
+//
 
+xQueueHandle ADC_to_LED_Queue_Handle = 0;
 
-//LED task
+/**************************************************************************//**
+ * @brief  LED task
+ *****************************************************************************/
+
 void led_task(void *p_arg)
-
 {
 
   (void)p_arg;
@@ -91,7 +108,7 @@ void led_task(void *p_arg)
     {
         // Put your application code here!
       sl_app_log("LED Task\r\n");
-        vTaskDelay(5000);
+        vTaskDelay(500);
         sl_led_toggle(&sl_led_led0);
 
     }
@@ -99,11 +116,15 @@ void led_task(void *p_arg)
 }
 
 
+//Queues
+
+
 
 /**************************************************************************//**
- * @brief  Initialize ADC function
+ * @brief  IADC related function
  *****************************************************************************/
 
+//This Function initializes the IADC to do a sincgle
 void my_adc_init (void)
 {
   IADC_Init_t init = IADC_INIT_DEFAULT;
@@ -166,7 +187,7 @@ void my_adc_start_measurement(void)
 
 }
 
-void my_adc_measurement_get(void)
+int my_adc_measurement_get(void)
 {
 
 
@@ -177,6 +198,7 @@ void my_adc_measurement_get(void)
 
   // Calculate input voltage in mV
   millivolts = (sample.data * 2500) / 4096;
+  return millivolts;
 }
 
 //IADC Task
@@ -191,10 +213,10 @@ void iadc_task(void *p_arg)
      // Put your application code here!
 
      sl_app_log("ADC Task\r\n");
-     vTaskDelay(100);
+     vTaskDelay(1000);
      my_adc_start_measurement();
      my_adc_measurement_get();
-     sl_led_toggle(&sl_led_led0);
+    // sl_led_toggle(&sl_led_led0);
    }
 
 }
@@ -212,6 +234,7 @@ SL_WEAK void app_init(void)
   ///
   my_adc_init();
 
+#if 0
 
   xTaskCreateStatic(led_task,
                     LED_TASK_NAME,
@@ -220,6 +243,8 @@ SL_WEAK void app_init(void)
                     tskIDLE_PRIORITY,
                     led_task_stack,
                     &led_task_handle);
+#endif
+  xTaskCreate(led_task, LED_TASK_NAME, LED_TASK_STACK_SIZE, NULL, tskIDLE_PRIORITY, &led_task_handle);
 
   xTaskCreateStatic(iadc_task,
                     IADC_TASK_NAME,
