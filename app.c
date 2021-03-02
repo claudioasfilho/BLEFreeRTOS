@@ -186,6 +186,8 @@ int my_adc_measurement_get(void)
   return millivolts;
 }
 
+
+
 /**************************************************************************//**
  * @brief  IADC Task
  *****************************************************************************/
@@ -201,7 +203,13 @@ void iadc_task(void *p_arg)
      sl_app_log("ADC Task\r\n");
      my_adc_start_measurement();
      milivolts = my_adc_measurement_get();
-     //It
+
+     //It Updates the ADCData variable on the GattDB database with the most current value
+     sl_bt_gatt_server_write_attribute_value(gattdb_ADCData,
+                                              0,
+                                               sizeof(milivolts),
+                                               (uint8_t)&milivolts
+                                               );
 
      if (! xQueueSend(ADC_to_LED_Queue_Handle,&milivolts,1000))
        {
@@ -367,7 +375,40 @@ void sl_bt_on_event(sl_bt_msg_t *evt)
                     "[E: 0x%04x] Failed to start advertising\n",
                     (int)sc);
       break;
+
 #if 0
+    case sl_bt_evt_gatt_server_characteristic_status_id:
+              if (evt->data.evt_gatt_server_characteristic_status.characteristic == gattdb_ADCData)
+                {
+                // client characteristic configuration changed by remote GATT client
+                if ((gatt_server_characteristic_status_flag_t)evt->data.evt_gatt_server_characteristic_status.status_flags == 1)
+                  {
+                    //Starting a Soft-Timer to send the data back to Central
+                    sl_app_log("Central Subscribed to Characteristic\r\n");
+                    //sl_bt_system_set_soft_timer ( 32768, 0, 0);
+                    sl_bt_gatt_server_read_attribute_value  ( gattdb_ADCData,
+                                                                           0,
+                                                                            1,
+                                                                            sizeof(gattdb_ADCData),
+                                                                            &gattdb_ADCData
+                                                                            );
+
+
+                  }
+                // confirmation of indication received from remove GATT client
+                else if (gatt_server_confirmation == (gatt_server_characteristic_status_flag_t)evt->data.evt_gatt_server_characteristic_status.status_flags)
+                  {
+                    sl_app_log("Gatt_server_confirmation\r\n");
+                  }
+                else {
+                  sl_app_assert(false,
+                                "[E: 0x%04x] Unexpected status flag in evt_gatt_server_characteristic_status\n",
+                                (int)evt->data.evt_gatt_server_characteristic_status.status_flags);
+                }
+              }
+              break;
+
+
     case sl_bt_evt_gatt_server_user_write_request_id:
 
      if (evt->data.evt_gatt_server_user_write_request.characteristic == gattdb_LED0) {
