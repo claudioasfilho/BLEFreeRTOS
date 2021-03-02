@@ -92,31 +92,16 @@ TaskHandle_t led_task_handle;
 StackType_t iadc_task_stack[IADC_TASK_STACK_SIZE];
 StaticTask_t iadc_task_handle;
 
-//
 
-xQueueHandle ADC_to_LED_Queue_Handle = 0;
+
 
 /**************************************************************************//**
- * @brief  LED task
+ * @brief  Queues
  *****************************************************************************/
 
-void led_task(void *p_arg)
-{
+//This Queue will be used to trigger the LED once a measurement is done on the ADC
 
-  (void)p_arg;
-  while (1)
-    {
-        // Put your application code here!
-      sl_app_log("LED Task\r\n");
-        vTaskDelay(500);
-        sl_led_toggle(&sl_led_led0);
-
-    }
-
-}
-
-
-//Queues
+xQueueHandle ADC_to_LED_Queue_Handle = 0;
 
 
 
@@ -201,9 +186,10 @@ int my_adc_measurement_get(void)
   return millivolts;
 }
 
-//IADC Task
+/**************************************************************************//**
+ * @brief  IADC Task
+ *****************************************************************************/
 
-//Application task
 void iadc_task(void *p_arg)
 
 {
@@ -211,13 +197,48 @@ void iadc_task(void *p_arg)
   (void)p_arg;
   while (1) {
      // Put your application code here!
-
+     int milivolts =0;
      sl_app_log("ADC Task\r\n");
-     vTaskDelay(1000);
      my_adc_start_measurement();
-     my_adc_measurement_get();
+     milivolts = my_adc_measurement_get();
+     //It
+
+     if (! xQueueSend(ADC_to_LED_Queue_Handle,&milivolts,1000))
+       {
+         printf("Failed to send to the queue\r\n");
+       }
+     vTaskDelay(1000);
     // sl_led_toggle(&sl_led_led0);
    }
+
+}
+
+/**************************************************************************//**
+ * @brief  LED task
+ *****************************************************************************/
+
+void led_task(void *p_arg)
+{
+
+  (void)p_arg;
+  while (1)
+    {
+      int milivolts = 0;
+        // Put your application code here!
+      sl_app_log("LED Task\r\n");
+
+      if(xQueueReceive(ADC_to_LED_Queue_Handle, &milivolts, 1000))
+      {
+          sl_led_toggle(&sl_led_led0);
+      }
+      else
+        {
+          printf("Failed to receive from the queue\r\n");
+        }
+
+
+      vTaskDelay(500);
+    }
 
 }
 
@@ -231,8 +252,13 @@ SL_WEAK void app_init(void)
   // Put your additional application init code here!                         //
   // This is called once during start-up.                                    //
   /////////////////////////////////////////////////////////////////////////////
-  ///
+
+  //It Initializes the IADC module
   my_adc_init();
+
+
+  //It Creates a Queue with the possibility of adding 3 items and each item will have the size of an int
+  ADC_to_LED_Queue_Handle = xQueueCreate(3,sizeof(int));
 
 #if 0
 
