@@ -54,7 +54,7 @@ static uint8_t advertising_set_handle = 0xff;
 #include "em_iadc.h"
 #include "em_cmu.h"
 volatile IADC_Result_t sample;
-volatile uint16_t ADCOutput;
+static uint16_t ADCOutput;
 
 // Set HFRCODLL clock to 80MHz
 #define HFRCODPLL_FREQ            cmuHFRCODPLLFreq_80M0Hz
@@ -103,7 +103,12 @@ StaticTask_t iadc_task_handle;
 
 xQueueHandle ADC_to_LED_Queue_Handle = 0;
 
+xQueueHandle BLE_to_ADC_Queue_Handle = 0;
 
+typedef struct NotiConnStruct{
+  uint8_t   connection;
+  uint8_t   config_flag;
+}NOTICONNSTRUCT;
 
 /**************************************************************************//**
  * @brief  IADC related function
@@ -196,24 +201,38 @@ uint16_t my_adc_measurement_get(void)
 void iadc_task(void *p_arg)
 
 {
-  sl_status_t sc =0 ;
   (void)p_arg;
-  while (1) {
-      sc =0 ;
-     // Put your application code here!
+  static NOTICONNSTRUCT NotiConnFlag;
+  while (1)
+    {
 
-     sl_app_log("ADC Task\r\n");
-     my_adc_start_measurement();
-     ADCOutput = my_adc_measurement_get();
+       if (xQueueReceive(BLE_to_ADC_Queue_Handle, &NotiConnFlag, 10))
+         {
+           if (NotiConnFlag.config_flag == gatt_notification)
+                    {
+                       printf("Notifications enabled\r\n");
+                    }
+           else printf("Notifications disabled\r\n");
 
-    printf("Status %x \r\n", sc);
+         }
 
+       sl_app_log("ADC Task\r\n");
+       my_adc_start_measurement();
+       ADCOutput = my_adc_measurement_get();
 
-     if (! xQueueSend(ADC_to_LED_Queue_Handle,&ADCOutput,1000))
-       {
-         printf("Failed to send to the queue\r\n");
-       }
-     vTaskDelay(1000);
+       //If Notifications enabled then it will send the data to the BLE Client
+       if (NotiConnFlag.config_flag == gatt_notification)
+         {
+           sl_bt_gatt_server_send_notification (NotiConnFlag.connection,gattdb_ADCData,sizeof(ADCOutput),(uint8_t*)&ADCOutput);
+         }
+
+       //It sends a message to the LED Task to toggle LED upon new ADC measurement
+       if (! xQueueSend(ADC_to_LED_Queue_Handle,&ADCOutput,1000))
+         {
+           printf("Failed to send to the queue\r\n");
+         }
+
+       vTaskDelay(1000);
    }
 
 }
@@ -263,7 +282,10 @@ SL_WEAK void app_init(void)
 
 
   //It Creates a Queue with the possibility of adding 3 items and each item will have the size of an int
-  ADC_to_LED_Queue_Handle = xQueueCreate(3,sizeof(int));
+  ADC_to_LED_Queue_Handle = xQueueCreate(1,sizeof(uint16_t));
+
+  //It Creates a Queue with the possibility of adding 3 items and each item will have the size of an int
+  BLE_to_ADC_Queue_Handle = xQueueCreate(1,sizeof(NOTICONNSTRUCT));
 
 #if 0
 
@@ -313,6 +335,8 @@ void sl_bt_on_event(sl_bt_msg_t *evt)
   uint8_t address_type;
   uint8_t system_id[8];
   uint16_t sent_len;
+  NOTICONNSTRUCT NotiConnFlag;
+
 
 
 
@@ -374,23 +398,22 @@ void sl_bt_on_event(sl_bt_msg_t *evt)
                     (int)sc);
       break;
 
-#if 0
+
     case sl_bt_evt_gatt_server_characteristic_status_id:
               if (evt->data.evt_gatt_server_characteristic_status.characteristic == gattdb_ADCData)
                 {
                 // client characteristic configuration changed by remote GATT client
                 if ((gatt_server_characteristic_status_flag_t)evt->data.evt_gatt_server_characteristic_status.status_flags == 1)
                   {
-                    //Starting a Soft-Timer to send the data back to Central
-                    sl_app_log("Central Subscribed to Characteristic\r\n");
-                    //sl_bt_system_set_soft_timer ( 32768, 0, 0);
-                    sl_bt_gatt_server_read_attribute_value  ( gattdb_ADCData,
-                                                                           0,
-                                                                            1,
-                                                                            sizeof(gattdb_ADCData),
-                                                                            &gattdb_ADCData
-                                                                            );
+                    //It adds the Config Flag and connection handle to the NotiConn Variable and send it to the IADC task via Queue
+                    NotiConnFlag.config_flag = evt->data.evt_gatt_server_characteristic_status.client_config_flags;
+                    NotiConnFlag.connection = evt->data.evt_gatt_server_characteristic_status.connection;
 
+                    //It sends a message to the LED Task to toggle LED upon new ADC measurement
+                        if (! xQueueSend(BLE_to_ADC_Queue_Handle,&NotiConnFlag,10))
+                          {
+                            printf("Failed to send to the queue\r\n");
+                          }
 
                   }
                 // confirmation of indication received from remove GATT client
@@ -406,24 +429,6 @@ void sl_bt_on_event(sl_bt_msg_t *evt)
               }
               break;
 
-
-    case sl_bt_evt_gatt_server_user_write_request_id:
-
-     if (evt->data.evt_gatt_server_user_write_request.characteristic == gattdb_LED0) {
-       if (evt->data.evt_gatt_server_user_write_request.value.data[0]) {
-         sl_led_turn_on(&sl_led_led0);
-   } else {
-         sl_led_turn_off(&sl_led_led0);
-       }
-       sl_bt_gatt_server_send_user_write_response(
-         evt->data.evt_gatt_server_user_write_request.connection,
-         evt->data.evt_gatt_server_user_write_request.characteristic,
-         0);
-
-
-   } break;
-#endif
-
     case sl_bt_evt_gatt_server_user_read_request_id:
      if(evt->data.evt_gatt_server_user_read_request.characteristic == gattdb_ADCData) {
 
@@ -431,7 +436,7 @@ void sl_bt_on_event(sl_bt_msg_t *evt)
          evt->data.evt_gatt_server_user_read_request.connection,
          evt->data.evt_gatt_server_user_read_request.characteristic,
          0,
-         sizeof(ADCOutput), (uint8_t)&ADCOutput, &sent_len);
+         sizeof(ADCOutput), (uint8_t*)&ADCOutput, &sent_len);
    } break;
 
 
