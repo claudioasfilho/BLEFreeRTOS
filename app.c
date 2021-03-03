@@ -114,7 +114,7 @@ typedef struct NotiConnStruct{
  * @brief  IADC related function
  *****************************************************************************/
 
-//This Function initializes the IADC to do a sincgle
+//This Function initializes the IADC to do a single
 void my_adc_init (void)
 {
   IADC_Init_t init = IADC_INIT_DEFAULT;
@@ -179,7 +179,7 @@ void my_adc_start_measurement(void)
 
 uint16_t my_adc_measurement_get(void)
 {
-  uint16_t milivolts = 0;
+  //uint16_t milivolts = 0;
 
   // Wait for conversion to be complete
        while((IADC0->STATUS & (_IADC_STATUS_CONVERTING_MASK
@@ -187,9 +187,9 @@ uint16_t my_adc_measurement_get(void)
        sample = IADC_pullSingleFifoResult(IADC0);
 
   // Calculate input voltage in mV
-       milivolts = (sample.data * 2500) / 4096;
+      // milivolts = (sample.data * 2500) / 4096;
 
-  return milivolts;
+  return sample.data;
 }
 
 
