@@ -57,7 +57,7 @@
     <characteristic const="false" id="ADCData" name="ADC" sourceId="" uuid="aba0b6ea-e88c-db96-bdc4-cb6850e8bb90">
       <description>ADC Data</description>
       <informativeText/>
-      <value length="2" type="hex" variable_length="false">0000</value>
+      <value length="0" type="user" variable_length="false"/>
       <properties>
         <read authenticated="false" bonded="false" encrypted="false"/>
         <notify authenticated="false" bonded="false" encrypted="false"/>

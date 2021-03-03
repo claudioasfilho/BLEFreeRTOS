@@ -54,7 +54,7 @@ static uint8_t advertising_set_handle = 0xff;
 #include "em_iadc.h"
 #include "em_cmu.h"
 volatile IADC_Result_t sample;
-volatile uint32_t millivolts;
+volatile uint16_t ADCOutput;
 
 // Set HFRCODLL clock to 80MHz
 #define HFRCODPLL_FREQ            cmuHFRCODPLLFreq_80M0Hz
@@ -172,9 +172,9 @@ void my_adc_start_measurement(void)
 
 }
 
-int my_adc_measurement_get(void)
+uint16_t my_adc_measurement_get(void)
 {
-
+  uint16_t milivolts = 0;
 
   // Wait for conversion to be complete
        while((IADC0->STATUS & (_IADC_STATUS_CONVERTING_MASK
@@ -182,8 +182,9 @@ int my_adc_measurement_get(void)
        sample = IADC_pullSingleFifoResult(IADC0);
 
   // Calculate input voltage in mV
-  millivolts = (sample.data * 2500) / 4096;
-  return millivolts;
+       milivolts = (sample.data * 2500) / 4096;
+
+  return milivolts;
 }
 
 
@@ -195,28 +196,24 @@ int my_adc_measurement_get(void)
 void iadc_task(void *p_arg)
 
 {
-
+  sl_status_t sc =0 ;
   (void)p_arg;
   while (1) {
+      sc =0 ;
      // Put your application code here!
-     int milivolts =0;
+
      sl_app_log("ADC Task\r\n");
      my_adc_start_measurement();
-     milivolts = my_adc_measurement_get();
+     ADCOutput = my_adc_measurement_get();
 
-     //It Updates the ADCData variable on the GattDB database with the most current value
-     sl_bt_gatt_server_write_attribute_value(gattdb_ADCData,
-                                              0,
-                                               sizeof(milivolts),
-                                               (uint8_t)&milivolts
-                                               );
+    printf("Status %x \r\n", sc);
 
-     if (! xQueueSend(ADC_to_LED_Queue_Handle,&milivolts,1000))
+
+     if (! xQueueSend(ADC_to_LED_Queue_Handle,&ADCOutput,1000))
        {
          printf("Failed to send to the queue\r\n");
        }
      vTaskDelay(1000);
-    // sl_led_toggle(&sl_led_led0);
    }
 
 }
@@ -315,6 +312,7 @@ void sl_bt_on_event(sl_bt_msg_t *evt)
   bd_addr address;
   uint8_t address_type;
   uint8_t system_id[8];
+  uint16_t sent_len;
 
 
 
@@ -424,18 +422,19 @@ void sl_bt_on_event(sl_bt_msg_t *evt)
 
 
    } break;
+#endif
 
     case sl_bt_evt_gatt_server_user_read_request_id:
-     if(evt->data.evt_gatt_server_user_read_request.characteristic == gattdb_LED0) {
-       led0_state = sl_led_get_state(&sl_led_led0);
+     if(evt->data.evt_gatt_server_user_read_request.characteristic == gattdb_ADCData) {
+
        sl_bt_gatt_server_send_user_read_response(
          evt->data.evt_gatt_server_user_read_request.connection,
          evt->data.evt_gatt_server_user_read_request.characteristic,
          0,
-         1, &led0_state, &sent_len);
+         sizeof(ADCOutput), (uint8_t)&ADCOutput, &sent_len);
    } break;
 
-#endif
+
     // -------------------------------
     // This event indicates that a new connection was opened.
     case sl_bt_evt_connection_opened_id:
